@@ -39,5 +39,9 @@ Contains alignments and estimated site rates of sanger-sequence era markers used
 ~/Site_Rates/
 Contains site rates and R scripts used in for investigations of phylogenetic information
 
+~/Assembly/Code/
+Contains the code used for assembly and alignment generation
 
+~/Assembly/References/
+Contains the reference files used in the assembly
 
