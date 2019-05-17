@@ -24,9 +24,7 @@ java -Xmx4000m ProfileUndeterminedIndexes ../Undetermined_indices/Sample_lane1/l
 26261 CGGCGACA    7127
 29140 GAAGCTGA    4829
 10138 GGAGGCCC    4191
-#MOST ABUNDANT UNDETERMINED INDEX  (NON NNNNNNNN) WAS FOUND IN 65% OF THE READS!!!!
-#May be an individual in there!
-#quit()
+
 I12765	AACGATAG
 java ExtractPairedReadsFromUndetermined ../Undetermined_indices/Sample_lane1/lane1_Undetermined_L001_R1_001.fastq ../Undetermined_indices/Sample_lane1/lane1_Undetermined_L001_R2_001.fastq ../I12765/I12765_R1_0001.fastq ../I12765/I12765_R2_0001.fastq AACGATAG
 
@@ -56,7 +54,7 @@ run-in-new-tab java -Xmx2000m Merge 10154 10161 5
 
 java -Xmx2g Merge 12765 12765 6
 
-#PUT THE APPROPRIATE REFERENCE FILES IN THE REFERENCES FOLDER BEFORE PROCEEDING THEY CAN BE FOUND IN DROPBOX...BUT CONSULT WITH ALAN
+#PUT THE APPROPRIATE REFERENCE FILES IN THE REFERENCES FOLDER BEFORE PROCEEDING THEY CAN BE FOUND IN DROPBOX
 
 ##########################################
 java WriteAssemblerScript P0094 10066 10113 ClitelataRefs 3 594 16000 16	#projectID 10066 10113 ReferenceName nRefs nLoci ramMB nThreads
