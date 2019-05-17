@@ -1,4 +1,3 @@
-#rename methods file to _Methods_P0094.txt
 
 mkdir OriginalRawReads
 mkdir Undetermined_indices
@@ -58,17 +57,15 @@ run-in-new-tab java -Xmx2000m Merge 10154 10161 5
 java -Xmx2g Merge 12765 12765 6
 
 #PUT THE APPROPRIATE REFERENCE FILES IN THE REFERENCES FOLDER BEFORE PROCEEDING THEY CAN BE FOUND IN DROPBOX...BUT CONSULT WITH ALAN
-\
+
 ##########################################
-java WriteAssemblerScript P0094 10066 10113 ClitelataRefs 3 594 16000 16	#projectID 10066 10113 ReferenceName nRefs 594 ramMB 16
-java WriteAssemblerScript P0094 10114 12765 ClitelataRefs 3 594 16000 16	#projectID 10066 10113 ReferenceName nRefs 594 ramMB 16
+java WriteAssemblerScript P0094 10066 10113 ClitelataRefs 3 594 16000 16	#projectID 10066 10113 ReferenceName nRefs nLoci ramMB nThreads
+java WriteAssemblerScript P0094 10114 12765 ClitelataRefs 3 594 16000 16	#projectID 10066 10113 ReferenceName nRefs nLoci ramMB nThreads
 
 chmod +x Assemble*.sh
 for i in {1..13}; do
     run-in-new-tab ./Assemble_P0094_${i}.sh
 done
-
-#CHECK TO MAKE SURE THAT THE NUBMER OF KMERS THAT WILL BE DISQUALIFIED IS <1000, IF NOT ASK ALAN FOR HELP
 
 java -Xmx8000m ExtractAssemblySummary2 10114 12765 594 ../Results/P0094_AssemblySummary #10066 10113 594 outputFileHead
 
@@ -79,10 +76,4 @@ quit()
 
 #NOW COMPUTE INDIVIDUAL-SPECIFIC NMAPPED FILES
 java ExtractNMapped 10066 10113
-
-#NOW COPY FILES NEEDED FOR DOWNSTREAM ANALYSIS TO THE MASTER DRIVE
-#Plug in Master Drive and ensure drive is mounted properly. Then edit the path as appropriate
-#and run the script below to move all the I folders
-# ./moveToMaster.sh PROJ OUTPATH MASTER_LIST
-./moveToMaster2.sh P0094 10066 10113 /media/alemmon/MasterDrive /media/alemmon/MasterDrive/MASTER_LIST.txt
 

@@ -19,16 +19,6 @@
 #STORNUM = STOR.NUM = Storage number that the Taxonset is stored on
 #DRIVENAME = DRIVE.NAME = Drive that the Taxonset will be offloaded to
 
-
-###IF YOU DEVIATE FROM THIS TEMPLATE WRITE DOWN ANY CHANGES######
-
-#This taxon set was done on LinuxIP LIN.UX
-
-
-
-
-
-
 #YOU SHOULD BE IN THE TAXSET FOLDER ON THE STORAGE DRIVE
 mkdir Results
 mkdir Code
@@ -50,18 +40,6 @@ java -Xmx4000m GatherALLConSeqsWithOKCoverage2 ../T385.txt 594 20
 #USE INFO IN HOMOLOGS FOLDER TO GENERATE DISTANCE MATRICIES
 #java -Xmx4000m GetPairwiseDistanceMeasures TAXSET ASSEMBLEDLOCI KMERSIZE
 java -Xmx4000m GetPairwiseDistanceMeasures T385 594 20
-
-
-
-########################## ALLELE PHASING ##########################
-#MAKE SURE THAT ALL INDIVIDUALS ARE ALLELE PHASED AT THIS POINT. 
-#IF THIS PROJECT REQUIRES THEM TO BE ALLELE PHASED, CHANGE THE PLOIDY SPECIFICATION FILE TO _2 FROM _C 
-rsync -av --progress '/home/alemmon/Dropbox/Anchor_Bioinformatics/Code/AllelePhaser3.class' '/home/alemmon/Dropbox/Anchor_Bioinformatics/Code/AllelePhaserRead.class' .
-#IF MORE THAN 30, PARALLELIZE THE LOOP THIS WAY FOR 2 ALLELES
-run-in-new-tab 'for i in {10081..17900}; do java AllelePhaser3 ../I$i/I$i 20000 0.5 2; done;'
-#IF LESS THAN 30, PARALLELIZE THE LOOP THIS WAY FOR 2 ALLELES
-for i in {10081..17900}; do run-in-new-tab "java AllelePhaser3 ../I$i/I$i 20000 0.5 2"; done;
-
 
 
 ########################## ORTHOLOGY ##########################
@@ -157,67 +135,6 @@ java -jar astral.4.9.7.jar -i ../Astral/RAxML_bestTree.T385_ALL.txt -b ../Astral
 
 #OPEN IN FIGTREE AND MAKE PDF TREE
 tail -n 1 ../Astral/T385_Astral.tre > ../Astral/AstralTree.tre
-
-
-
-######################UPLOADING TO DROPBOX##########################
-mkdir /home/alemmon/Dropbox/Anchor_Bioinformatics/TaxonSets/Results/T385_James_Clitelatta_leeches
-mkdir /home/alemmon/Dropbox/Anchor_Bioinformatics/TaxonSets/Results/T385_James_Clitelatta_leeches/RAxML_conSeqs
-
-#zip RAxMLFOLDERTAIL and upload files to TAXSET_COLLABNAME/RAxML DROPBOXFOLDER
-sleep 0.1
-run-in-new-tab cd /media/alemmon/storage*/T385
-tar -zcvf RAxML_conSeqs.tar.gz RAxML_conSeqs
-tar -zcvf Prealignments_conSeqs.tar.gz Prealignments_conSeqs
-tar -zcvf Alignments_conSeqs.tar.gz Alignments_conSeqs
-tar -zcvf TrimmedAlignments_conSeqs.tar.gz TrimmedAlignments_conSeqs
-
-#rsyncs files to collab taxonset results folder
-rsync -av --progress RAxML_conSeqs.tar.gz Prealignments_conSeqs.tar.gz Alignments_conSeqs.tar.gz TrimmedAlignments_conSeqs.tar.gz /home/alemmon/Dropbox/Anchor_Bioinformatics/TaxonSets/Results/T385_James_Clitelatta_leeches
-rsync -av --progress T385_ConcatTree.pdf T385_ConcatTree_Cladogram.pdf ./RAxML_conSeqs/T385_ConcatLoci.charSets ./RAxML_conSeqs/T385_ConcatLoci.phylip ./RAxML_conSeqs/T385_Statistics.txt ./RAxML_conSeqs/RAxML_bipartitions.T385_ConcatLoci /home/alemmon/Dropbox/Anchor_Bioinformatics/TaxonSets/Results/T385_James_Clitelatta_leeches/RAxML_conSeqs
-rsync -av --progress ./Astral /home/alemmon/Dropbox/Anchor_Bioinformatics/TaxonSets/Results/T385_James_Clitelatta_leeches
-
-
-
-#MAKE SURE THE FOLLOWING FILES ARE ON DROPBOX
-
-# FOR CONCATENATED TREES
-# RAxML_conSeqs.zip
-# TAXSET_ConcatLoci.charSets
-# TAXSET_ConcatLoci.phylip
-# TAXSET_Statistics.txt
-#  RAxML_bipartitions.TAXSET_ConcatLoci 
-#  TAXSET_Tree.pdf 
-
-
-# FOR SEPARATE TREES
-# RAxMLFOLDERTAIL.zip
-# TAXSET_ConcatLoci.charSets
-# TAXSET_ConcatLoci.phylip
-# TAXSET_Statistics.txt
-
-
-# FOR ASTRAL TREES
-# Astral/bs-files
-# Astral/RAxML_bestTree.TAXSET_ALL.txt
-# Astral/TAXSET_Astral.tre
-# Astral/AstralTree.tre
-# Astral/AstralTree.pdf
-
-
-
-##########################BACKUP DATA TAXONSET AND PROJECT DRIVES##########################
-#Compress I numbers and move whole taxonset to Project Drive
-#Upload to TaxonSets Drive
-mkdir ../Samples
-rsync -av --progress ../I* ../Samples
-rm ../Samples/I*/*.fastq
-tar -zcvf ../Samples.tar.gz ../Samples
-rm -r ../Samples
-rsync -avz --exclude 'I*' /media/alemmon/storage*/T385 alemmon@128.186.21.179:/Volumes/TaxonSets
-
-#Upload to Collaborator ProjectDrive
-rsync -avz --exclude 'I*' /media/alemmon/storage*/T385 alemmon@128.186.21.179:/Volumes/DRIVE.NAME
 
 
 
