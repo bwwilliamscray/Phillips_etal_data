@@ -15,7 +15,7 @@ Anna J. Phillips1, Alex Dornburg2, Katerina Zapfe2, Frank E. Anderson3, Samuel W
 
 ###
 
-This directory contains assembled sequence data, input files, trees, and scripts used for investigation early diverging leech relationships. 
+This directory contains assembled sequence data, input files, trees, and scripts used for investigation early diverging leech relationships. NOTE: this replaces prior versions of the data following our identification of sequence contamination.
 
 ~/Alignments/
 contains all concatenated sequence files used 
@@ -44,4 +44,7 @@ Contains the code used for assembly and alignment generation
 
 ~/Assembly/References/
 Contains the reference files used in the assembly
+
+~/Trees/
+Contains the trees from the various concatenated analyses
 
